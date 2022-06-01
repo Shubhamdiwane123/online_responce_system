@@ -18,8 +18,9 @@ void Voting_Request()
 		               break;
 		    case '2' : fptr[1]();
 		               break;
-		   // case '*' : main();
-		     //          break;
+		   case '*' : main();
+			      break;
+		   
 		    default  : invalid_option++;
 			       if(invalid_option==3)
 			       {

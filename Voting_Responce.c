@@ -1,5 +1,5 @@
 #include"Voting_Responce.h"
-char Fname[10]; // for scanning filename from user 
+char Fname[50]; // for scanning filename from user 
 pthread_mutex_t lock;
 FILE *F; //To access file operations
 void *person1(void *p)

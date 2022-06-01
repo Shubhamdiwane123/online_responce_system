@@ -4,7 +4,7 @@ void feedback_func()
 DIR * dir = opendir(".");		// to oprn directory
 if(dir == NULL)
 {
-	return 1;
+	return;
 }
 	struct dirent* entity;
 	entity = readdir(dir);
@@ -36,7 +36,7 @@ for (int j =1;j<=i;j++)
 	{
 		
 		printf("file didnt present");
-		return 1;
+		return ;
 	}
 	else{
 		char ch;
@@ -98,7 +98,7 @@ pthread_join(tid[2],NULL);
 
 fclose(fp2);
 closedir(dir);
-return 0;
+return;
 }
 
 
@@ -233,24 +233,3 @@ void write_data(FILE *fp2)
 	fprintf(fp2,"%s\n",det.Feedback);
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
