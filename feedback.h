@@ -5,10 +5,11 @@
 #define SIZE 8
 pthread_mutex_t lock;
 void feedback_func();
-void *data_enter1(FILE *fp2);
-void *data_enter2(FILE *fp2);
-void *data_enter3(FILE *fp2);
+void *data_enter1();
+void *data_enter2();
+void *data_enter3();
 void write_data(FILE *fp2);
+char Email_check[]="@thundersoft.com";
 typedef struct Employee
 {
 	char Emp_id[SIZE];

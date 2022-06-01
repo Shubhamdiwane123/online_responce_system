@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS = -c
-OBJS = main.o registration_fun.o -lpthread Voting_Request.o Voting_Responce.o -lpthread feedback_func.o -lpthrad
+OBJS = main.o registration_fun.o -lpthread Voting_Request.o Voting_Responce.o -lpthread feedback_func.o -lpthread
 HDR = main.h Voting_Request.h Voting_Responce.h feedback.h
 exe : $(OBJS) $(HDR)
 	$(CC) $(OBJS) -o exe
