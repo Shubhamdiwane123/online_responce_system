@@ -12,7 +12,9 @@ void *person1(void *p)
 	fputc(ch,F);
 	for(i=0;buf[i];i++)
 	{
-		if((buf[i])!='\t')
+		if(buf[i]==',')
+			continue;
+		else if((buf[i])!='\t')
 			printf("%c",buf[i]);
 		else
 		{
@@ -35,7 +37,9 @@ void *person2(void *p)
 	fputc(ch,F);
 	for(i=0;buf[i];i++)
 	{
-		if((buf[i])!='\t')
+		if(buf[i]==',')
+			continue;
+		else if((buf[i])!='\t')
 			printf("%c",buf[i]);
 		else
 		{
@@ -59,7 +63,9 @@ void *person3(void *p)
 	fputc(ch,F);
 	for(i=0;buf[i];i++)
 	{
-		if((buf[i])!='\t')
+		if(buf[i]==',')
+			continue;
+		else if((buf[i])!='\t')
 			printf("%c",buf[i]);
 		else
 		{

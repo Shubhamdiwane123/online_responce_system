@@ -4,7 +4,7 @@ pthread_mutex_t lock;
 void registration_fun()//registration function
 {
 	int n;
-	int local_cnt_r=0;
+	int cnt_r=4;
         void (*fptr[3])();
         fptr[0] = create;
         fptr[1] = delete;
@@ -16,15 +16,17 @@ void registration_fun()//registration function
  	 	case 1:fptr[0]();break;
 		case 2:fptr[1]();break;
 		case 3:fptr[2]();break;
-		default: local_cnt_r++;
-			 if(local_cnt_r>3)
+		default: --cnt_r;
+			 if(cnt_r<1)
 			 {
-				 printf("you choose the wrong option three times\n");
+				 printf("you choose the wrong option more than three times that's why application is closed\n");
 				 exit(0);
 			 }
 			 else
-				 break;
-
+			 {
+				 printf("your enter invalid option you have only %d chance\n",cnt_r);
+				 break;// if cnt is less than 3 then go to main again
+			 }
 	}
 }
 void create()
