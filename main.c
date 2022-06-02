@@ -7,7 +7,7 @@ int main()
 
 	while(1)
 	{
-		printf("1.Training 2.Voating 3.exit\n");
+		printf("1.Training 2.Voting 3.exit\n");
 		printf("enter your choice\n");
 		scanf("%d",&choice_main);
 		switch(choice_main)
