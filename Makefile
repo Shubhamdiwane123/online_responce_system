@@ -14,8 +14,6 @@ Voting_Request.o : Voting_Request.c
 	$(CC) $(CFLAGS) Voting_Request.c
 Voting_Responce.o : Voting_Responce.c
 	$(CC) $(CFLAGS) Voting_Responce.c
-#sub.o : sub.c
-#	$(CC) $(CFLAGS) sub.c
 clean :
 	rm *.o
 	rm exe
