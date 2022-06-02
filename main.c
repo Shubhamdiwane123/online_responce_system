@@ -17,15 +17,15 @@ int main()
 			case 2: first[1]();// for go to voating function
 				break;
 			case 3: exit(0);// for exit from the application
-			default: cnt_main--;//if user choose wrong options cnt is  incrementing 
+			default: --cnt_main;//if user choose wrong options cnt is  incrementing 
 				 if(cnt_main<1)//if cnt is more than 3 times then exit from application
 				 {
-					 printf("you select three times wrong option that's why application is closed\n");
+					 printf("you select more than three times wrong option that's why application is closed\n");
 					 exit(0);
 				 }
 				 else
 				 {
-					 printf("your enter invalid option you have only %d chance\n",cnt_main);
+					 printf("you enter invalid option you have only %d chance\n",cnt_main);
 					 break;// if cnt is less than 1 then application is closed
 				 }
 		}
@@ -38,7 +38,7 @@ void Training()// function for training registration and feedback
 	void (*training[])()={registration_fun,feedback_func};
 	while(1)
 	{
-		printf("1.registration_fun 2. feedback 3.exit\n");
+		printf("1.registration_fun 2. feedback 3.main_mainu\n");
 		printf("enter your choice\n");
 		scanf("%d",&choice_t);
 		switch(choice_t)
@@ -47,16 +47,16 @@ void Training()// function for training registration and feedback
 				break;
 			case 2: training[1]();// for go to training_feedback function
 				break;
-			case 3: exit(0);
+			case 3: main();
 			default:cnt_t--;//if user choose wrong options then cnt incremented
 				 if(cnt_t<1)// if cnt is more than 3 then exit
 				 {
-					 printf("you select three times wrong option that's why application is closed\n");
+					 printf("you select more than three times wrong option that's why application is closed\n");
                                          exit(0);
                                  }
 				else
                                  {
-                                         printf("your enter invalid option you have only %d chance\n",cnt_t);
+                                         printf("you enter invalid option you have only %d chance\n",cnt_t);
                                          break;// if cnt is less than 1 then go to main again
                                  }
 		}
@@ -69,7 +69,7 @@ void Voting()// function for voating request and responce
         void (*voting[])()={Voting_Request,Voting_Responce};
         while(1)
         {
-                printf("1.request 2.responce 3.exit\n");
+                printf("1.request 2.responce 3.main_mainu\n");
                 printf("enter your choice\n");
                 scanf("%d",&choice_v);
                 switch(choice_v)
@@ -78,16 +78,16 @@ void Voting()// function for voating request and responce
                                 break;
                         case 2: voting[1]();// for go to voting responce function
                                 break;
-                        case 3: exit(0);
+                        case 3: main();
                         default:cnt_v--;// if user choose wrong option then cnt is increamented
                                  if(cnt_v<1)// if cnt is more than 3 then exit
                                  {
-                                         printf("you select three times wrong option that's why application is closed\n");
+                                         printf("you select more than three times wrong option that's why application is closed\n");
                                          exit(0);
                                  }
 				else
                                  {
-                                         printf("your enter invalid option you have only %d chance\n",cnt_v);
+                                         printf("you enter invalid option you have only %d chance\n",cnt_v);
                                          break;// if cnt is less than 3 then go to main again
                                  }
                 }
