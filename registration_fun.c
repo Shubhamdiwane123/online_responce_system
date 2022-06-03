@@ -1,4 +1,3 @@
-#include"main.h"
 #include"registration.h"
 pthread_mutex_t lock;
 void registration_fun()// void registration function
