@@ -82,7 +82,8 @@ void Voting_Responce()
 {
 	char ch;
 	int i=0;
-	system("ls");
+
+	system("ls *_request.xls");
 	printf("enter file name\n");
 	scanf("%s",Fname);
 	F=fopen(Fname,"r");

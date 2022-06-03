@@ -1,22 +1,25 @@
 #include"main.h"
 #include"registration.h"
 pthread_mutex_t lock;
-void registration_fun()//registration function
+void registration_fun()// void registration function
 {
-	int n;
+	int n;//choosing option in switch
 	int cnt_r=4;
         void (*fptr[3])();
         fptr[0] = create;
         fptr[1] = delete;
         fptr[2] = send;
-	printf("Do you want 1.create (or) 2.delete (or) 3.send\nchoose(1/2/3)\n");
+	while(1)
+	{
+	printf("Do you want 1.create (or) 2.delete (or) 3.send (or) 4.main_mainu\nchoose(1/2/3/4)\n");
 	scanf(" %d",&n);// choosing a function
 	switch(n)
 	{
- 	 	case 1:fptr[0]();break;
-		case 2:fptr[1]();break;
-		case 3:fptr[2]();break;
-		default: --cnt_r;
+ 	 	case 1 :fptr[0]();break;
+		case 2 :fptr[1]();break;
+		case 3 :fptr[2]();break;
+		case 4 :main(); break;
+		default:--cnt_r;
 			 if(cnt_r<1)
 			 {
 				 printf("you choose the wrong option more than three times that's why application is closed\n");
@@ -26,16 +29,17 @@ void registration_fun()//registration function
 			 {
 				 printf("your enter invalid option you have only %d chance\n",cnt_r);
 				 break;// if cnt is less than 3 then go to main again
-			 }
+			 }	       
+	}
 	}
 }
 void create()
 {
-        char a[MAX];
-        char b[MAX]="_training.xls";
-	char c[MAX];
-	char field;
-        int i=0;
+        char a[MAX];//scaning file name
+        char b[MAX]="_training.xls";//adding this with file for perfect format
+	char c[MAX];//copy of scanned file name
+	char field;//getting fields from user
+        int i=0;//this is used in for loop
 scan:
 	do
 	{
@@ -68,9 +72,9 @@ scan:
 	}//this is for adding '_' in the place of space
         strcat(a,b);
         printf("%s\n",a);
-        FILE*fp;
+        FILE*fp;//file pointer
         fp=fopen(a,"w");
-        int n;
+        //int n;
 	printf("enter the fields for %s training form\n",c);
         do//this will scan the fields for the .xls file 
         {
@@ -82,22 +86,33 @@ scan:
                 scanf(" %c",&field);
         }while(field=='y'||field=='Y');
 	fclose(fp);
-	
-
+	printf("%s file is created\n",a);
+//	static int k=0;
+//	char*files[k][256];
+//	k++;
+//	string[k][256]=a;
+//	printf("%s\n",string[k][256]);
 }
 void delete()
 {
 	char delete[BEAST];//delete string will present in this variable eg:-rm filename.xls
-	char d[MAX];
+	char d[MAX];//scanning file name for deletion
 	char b[MAX]="_training.xls";
-	char sure;
+	int i;
+	char sure;// asking for sure to delete
 	if(system("ls *.xls"))//this will list the file with .xls extension
 	{
 		printf("Training forms are not created\n");
 		return;
 	}
 	printf("Enter the file name to delete\n");
-	scanf(" %s",d);//scanning file name
+	scanf(" %[^\n]",d);//scanning file name
+	for(i=0;d[i];i++)
+        {
+                if(d[i]==' ')
+                        d[i]='_';
+        }//this is for adding '_' in the place of space
+
 	char *p=strstr(d,b);//cheaking string "_training.xls" is present or not.If it present it'll do nothing otherwise strcat will add  
 	if(p==NULL)
 		strcat(d,b);//"_training.xls"
@@ -118,7 +133,8 @@ void delete()
 void send()
 {
 	pthread_t tid[3];
-	char a[BEAST];
+	int i;
+	char a[BEAST];//scanning for filename
 	char b[MAX]="_training.xls";
 	printf("Enter the file name to send\nList of files are presented below:-\n");
 	if(system("ls *.xls"))//this will list the file with .xls extension
@@ -126,7 +142,13 @@ void send()
                 printf("Training forms are not created\n");
                 return;
         }
-	scanf(" %s",a);
+	scanf(" %[^\n]",a);
+	for(i=0;a[i];i++)
+        {
+                if(a[i]==' ')
+                        a[i]='_';
+        }//this is for adding '_' in the place of space
+
 	char *p=strstr(a,b);//cheaking string "_training.xls" is present or not.If it present it'll do nothing otherwise strcat will add
         if(p==NULL)
                 strcat(a,b);//"_training.xls"
@@ -141,7 +163,7 @@ void send()
 		pthread_join(tid[1],NULL);
 		pthread_join(tid[2],NULL);
 	}//and i created three user pthread
-	else 
+	else
 	{
 		printf("%s\nfile does not created\n",a);
 	}//if send file doesnot present else part will display
@@ -163,13 +185,13 @@ void*user_thread1(char*p)
 	fclose(fp);
 	fp=fopen(p,"a");//again the same file opening in append mode
 	fprintf(fp,"\n");//\n is used to get the file pointer to next line
-#if 1	
+
 	for(i=0;firstline[i];i++)
 	{
 		if(firstline[i]=='\t'||firstline[i]=='\n')
 		{
-		printf(":-");
-			scanf("%s",scan);
+			printf(":-");
+			scanf(" %[^\n]",scan);
 			fprintf(fp,"%s\t",scan);
 		}
 		else
@@ -177,7 +199,6 @@ void*user_thread1(char*p)
 			printf("%c",firstline[i]);
 		}
 	}//this whole for loop for scaning the details for each fields and it will fill that excel sheet
-#endif
 	
 
 	fclose(fp);//closing file which is opened in append mode
@@ -205,7 +226,7 @@ void*user_thread2(char*p)
                 if(firstline[i]=='\t'||firstline[i]=='\n')
                 {
                         printf(":-");
-                        scanf("%s",scan);
+                        scanf(" %[^\n]",scan);
                         fprintf(fp,"%s\t",scan);
                 }
                 else
@@ -242,7 +263,7 @@ void*user_thread3(char*p)
                 if(firstline[i]=='\t'||firstline[i]=='\n')
                 {
                         printf(":-");
-                        scanf("%s",scan);
+                        scanf(" %[^\n]",scan);
                         fprintf(fp,"%s\t",scan);
                 }
                 else
