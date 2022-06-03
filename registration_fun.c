@@ -14,10 +14,11 @@ void registration_fun()// void registration function
 	scanf(" %d",&n);// choosing a function
 	switch(n)
 	{
- 	 	case 1 :fptr[0]();break;
-		case 2 :fptr[1]();break;
-		case 3 :fptr[2]();break;
-		case 4 :main(); break;
+ 	 	case 1:fptr[0]();break;
+		case 2:fptr[1]();break;
+		case 3:fptr[2]();break;
+		case 4:main();
+		       break;
 		default:--cnt_r;
 			 if(cnt_r<1)
 			 {
@@ -99,7 +100,7 @@ void delete()
 	char b[MAX]="_training.xls";
 	int i;
 	char sure;// asking for sure to delete
-	if(system("ls *.xls"))//this will list the file with .xls extension
+	if(system("ls *training.xls"))//this will list the file with .xls extension
 	{
 		printf("Training forms are not created\n");
 		return;
@@ -117,6 +118,8 @@ void delete()
 		strcat(d,b);//"_training.xls"
 	
 	snprintf(delete,sizeof(delete),"rm %s",d);//In delete it will add with "rm filename.xls"
+	if(!access(d,F_OK))//access is for checking the file is present or not
+        {
 	printf("Are you sure (y/n)\n");
 	scanf(" %c",&sure);
 	if(sure=='Y'||sure=='y')
@@ -128,6 +131,11 @@ void delete()
 	{
 		printf("%s is not deleted\n",d);// if we give no at sure choice the else will print
 	}
+	}
+	else
+        {
+                printf("%s\nfile does not created\n",d);
+        }//if send file doesnot present else part will display
 }
 void send()
 {
@@ -136,7 +144,7 @@ void send()
 	char a[BEAST];//scanning for filename
 	char b[MAX]="_training.xls";
 	printf("Enter the file name to send\nList of files are presented below:-\n");
-	if(system("ls *.xls"))//this will list the file with .xls extension
+	if(system("ls *training.xls"))//this will list the file with .xls extension
         {
                 printf("Training forms are not created\n");
                 return;
