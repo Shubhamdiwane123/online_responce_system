@@ -19,6 +19,8 @@ void *person1(void *p)
 		else
 		{
 			printf("\n");
+			printf("use '_' in case of ' '\n");
+
 			scanf("%s",str);
 			fprintf(F,"%s\t",str);
 		}
@@ -44,6 +46,8 @@ void *person2(void *p)
 		else
 		{
 			printf("\n");
+			printf("use '_' in case of ' '\n");
+
 			scanf("%s",str);
 			fprintf(F,"%s\t",str);
 		}
@@ -70,6 +74,7 @@ void *person3(void *p)
 		else
 		{
 			printf("\n");
+			printf("use '_' in case of ' '\n");
 			scanf("%s",str);
 			fprintf(F,"%s\t",str);
 		}
