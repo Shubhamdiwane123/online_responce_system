@@ -10,15 +10,14 @@ void registration_fun()// void registration function
         fptr[2] = send;
 	while(1)
 	{
-	printf("Do you want 1.create (or) 2.delete (or) 3.send (or) 4.main_mainu\nchoose(1/2/3/4)\n");
+	printf("Do you want 1.create (or) 2.delete (or) 3.send (or) 4.Main_menu\nchoose(1/2/3/4)\n");
 	scanf(" %d",&n);// choosing a function
 	switch(n)
 	{
  	 	case 1:fptr[0]();break;
 		case 2:fptr[1]();break;
 		case 3:fptr[2]();break;
-		case 4:main();
-		       break;
+		case 4:main();break;
 		default:--cnt_r;
 			 if(cnt_r<1)
 			 {
@@ -192,18 +191,102 @@ void*user_thread1(char*p)
 	fclose(fp);
 	fp=fopen(p,"a");//again the same file opening in append mode
 	fprintf(fp,"\n");//\n is used to get the file pointer to next line
-
+	int j=0,k=0;
+	char ab[100];
 	for(i=0;firstline[i];i++)
 	{
 		if(firstline[i]=='\t'||firstline[i]=='\n')
 		{
 			printf(":-");
-			scanf(" %[^\n]",scan);
+thread:			scanf(" %[^\n]",scan);
+			if(strstr(ab,"name")||strstr(ab,"NAME")||strstr(ab,"Name"))
+			{
+			for(int k=0;scan[k];k++)
+			{
+				if((scan[k]>='a'&&scan[k]<='z')||(scan[k]>='A'&&scan[k]<='Z')||(scan[k]==' '))
+				{
+					continue;
+				}
+				else
+				{
+					printf("only character should allowed\nname:-");
+					goto thread;
+				}
+			}
 			fprintf(fp,"%s\t",scan);
+			j=0;
+			}
+			if(strstr(ab,"number")||strstr(ab,"NUMBER")||strstr(ab,"Number")||strstr(ab,"NUM")||strstr(ab,"Num")||strstr(ab,"num"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(scan[k]>='0'&&scan[k]<='9')
+                                {
+                                        continue;
+                                }
+				else
+                                {
+                                        printf("only numeric should allowed\nnumber:-");
+                                        goto thread;
+                                }
+                        }
+			if(k==10)
+                        fprintf(fp,"%s\t",scan);
+			else
+			{
+				printf("invalid number\nnumber:-");
+				goto thread;
+			}
+                        j=0;
+                        }
+			if(strstr(ab,"email_id")||strstr(ab,"email")||strstr(ab,"Email")||strstr(ab,"EMAIL_ID")||strstr(ab,"EMAIL"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(strstr(scan,"@gmail.com"))
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("wrong email\nEnter your Email:-");
+                                        goto thread;
+                                }
+                        }
+                        fprintf(fp,"%s\t",scan);
+                        j=0;
+                        }
+			if(strstr(ab,"EMP_ID")||strstr(ab,"emp_id")||strstr(ab,"Emp_id")||strstr(ab,"Emp_ID"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(scan[0]=='0')
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("wrong emp_ID it should start with zero\nEnter your Emp_id:-");
+                                        goto thread;
+                                }
+                        }
+			if(k==6){
+                        fprintf(fp,"%s\t",scan);
+			}
+			else
+			{
+				printf("invalid emp_id\n");
+				goto thread;
+			}
+                        j=0;
+                        }
+
+
 		}
 		else
 		{
 			printf("%c",firstline[i]);
+			ab[j++]=firstline[i];
 		}
 	}//this whole for loop for scaning the details for each fields and it will fill that excel sheet
 	
@@ -211,9 +294,10 @@ void*user_thread1(char*p)
 	fclose(fp);//closing file which is opened in append mode
 	pthread_mutex_unlock(&lock);//mutex lock is used to avoid the thread can execute the same region
 }
+//three user containing the same coding these threads are used to collect the details from user
 void*user_thread2(char*p)
 {
-	pthread_mutex_lock(&lock);
+        pthread_mutex_lock(&lock);
         int i;
         char ch;
         char firstline[BEAST];
@@ -227,30 +311,113 @@ void*user_thread2(char*p)
         fclose(fp);
         fp=fopen(p,"a");//again the same file opening in append mode
         fprintf(fp,"\n");//\n is used to get the file pointer to next line
-#if 1
+        int j=0,k=0;
+        char ab[100];
         for(i=0;firstline[i];i++)
         {
                 if(firstline[i]=='\t'||firstline[i]=='\n')
                 {
                         printf(":-");
-                        scanf(" %[^\n]",scan);
+thread:                 scanf(" %[^\n]",scan);
+                        if(strstr(ab,"name")||strstr(ab,"NAME")||strstr(ab,"Name"))
+                        {
+                        for(int k=0;scan[k];k++)
+                        {
+                                if((scan[k]>='a'&&scan[k]<='z')||(scan[k]>='A'&&scan[k]<='Z')||(scan[k]==' '))
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("only character should allowed\nname:-");
+                                        goto thread;
+                                }
+                        }
                         fprintf(fp,"%s\t",scan);
+                        j=0;
+                        }
+                        if(strstr(ab,"number")||strstr(ab,"NUMBER")||strstr(ab,"Number")||strstr(ab,"NUM")||strstr(ab,"Num")||strstr(ab,"num"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(scan[k]>='0'&&scan[k]<='9')
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("only numeric should allowed\nnumber:-");
+                                        goto thread;
+                                }
+                        }
+                        if(k==10)
+                        fprintf(fp,"%s\t",scan);
+                        else
+                        {
+                                printf("invalid number\nnumber:-");
+                                goto thread;
+                        }
+                        j=0;
+                        }
+                        if(strstr(ab,"email_id")||strstr(ab,"email")||strstr(ab,"Email")||strstr(ab,"EMAIL_ID")||strstr(ab,"EMAIL"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(strstr(scan,"@gmail.com"))
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("wrong email\nEnter your Email:-");
+                                        goto thread;
+                                }
+                        }
+                        fprintf(fp,"%s\t",scan);
+                        j=0;
+                        }
+                        if(strstr(ab,"EMP_ID")||strstr(ab,"emp_id")||strstr(ab,"Emp_id")||strstr(ab,"Emp_ID"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(scan[0]=='0')
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("wrong emp_ID it should start with zero\nEnter your Emp_id:-");
+                                        goto thread;
+                                }
+                        }
+                        if(k==6){
+                        fprintf(fp,"%s\t",scan);
+                        }
+                        else
+                        {
+                                printf("invalid emp_id\n");
+                                goto thread;
+                        }
+                        j=0;
+                        }
+
+
                 }
                 else
                 {
                         printf("%c",firstline[i]);
+                        ab[j++]=firstline[i];
                 }
         }//this whole for loop for scaning the details for each fields and it will fill that excel sheet
-#endif
 
 
         fclose(fp);//closing file which is opened in append mode
         pthread_mutex_unlock(&lock);//mutex lock is used to avoid the thread can execute the same region
-
 }
+//three user containing the same coding these threads are used to collect the details from user
 void*user_thread3(char*p)
 {
-	pthread_mutex_lock(&lock);
+        pthread_mutex_lock(&lock);
         int i;
         char ch;
         char firstline[BEAST];
@@ -264,24 +431,106 @@ void*user_thread3(char*p)
         fclose(fp);
         fp=fopen(p,"a");//again the same file opening in append mode
         fprintf(fp,"\n");//\n is used to get the file pointer to next line
-#if 1
+        int j=0,k=0;
+        char ab[100];
         for(i=0;firstline[i];i++)
         {
                 if(firstline[i]=='\t'||firstline[i]=='\n')
                 {
                         printf(":-");
-                        scanf(" %[^\n]",scan);
+thread:                 scanf(" %[^\n]",scan);
+                        if(strstr(ab,"name")||strstr(ab,"NAME")||strstr(ab,"Name"))
+                        {
+                        for(int k=0;scan[k];k++)
+                        {
+                                if((scan[k]>='a'&&scan[k]<='z')||(scan[k]>='A'&&scan[k]<='Z')||(scan[k]==' '))
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("only character should allowed\nname:-");
+                                        goto thread;
+                                }
+                        }
                         fprintf(fp,"%s\t",scan);
+                        j=0;
+                        }
+                        if(strstr(ab,"number")||strstr(ab,"NUMBER")||strstr(ab,"Number")||strstr(ab,"NUM")||strstr(ab,"Num")||strstr(ab,"num"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(scan[k]>='0'&&scan[k]<='9')
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("only numeric should allowed\nnumber:-");
+                                        goto thread;
+                                }
+                        }
+                        if(k==10)
+                        fprintf(fp,"%s\t",scan);
+                        else
+                        {
+                                printf("invalid number\nnumber:-");
+                                goto thread;
+                        }
+                        j=0;
+                        }
+                        if(strstr(ab,"email_id")||strstr(ab,"email")||strstr(ab,"Email")||strstr(ab,"EMAIL_ID")||strstr(ab,"EMAIL"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(strstr(scan,"@gmail.com"))
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("wrong email\nEnter your Email:-");
+                                        goto thread;
+                                }
+                        }
+                        fprintf(fp,"%s\t",scan);
+                        j=0;
+                        }
+                        if(strstr(ab,"EMP_ID")||strstr(ab,"emp_id")||strstr(ab,"Emp_id")||strstr(ab,"Emp_ID"))
+                        {
+                        for(k=0;scan[k];k++)
+                        {
+                                if(scan[0]=='0')
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        printf("wrong emp_ID it should start with zero\nEnter your Emp_id:-");
+                                        goto thread;
+                                }
+                        }
+                        if(k==6){
+                        fprintf(fp,"%s\t",scan);
+                        }
+                        else
+                        {
+                                printf("invalid emp_id\n");
+                                goto thread;
+                        }
+                        j=0;
+                        }
+
+
                 }
                 else
                 {
                         printf("%c",firstline[i]);
+                        ab[j++]=firstline[i];
                 }
         }//this whole for loop for scaning the details for each fields and it will fill that excel sheet
-#endif
 
 
         fclose(fp);//closing file which is opened in append mode
         pthread_mutex_unlock(&lock);//mutex lock is used to avoid the thread can execute the same region
-
 }
