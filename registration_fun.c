@@ -86,11 +86,6 @@ scan:
         }while(field=='y'||field=='Y');
 	fclose(fp);
 	printf("%s file is created\n",a);
-//	static int k=0;
-//	char*files[k][256];
-//	k++;
-//	string[k][256]=a;
-//	printf("%s\n",string[k][256]);
 }
 void delete()
 {
