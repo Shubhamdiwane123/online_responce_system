@@ -3,7 +3,7 @@
 
 void Voting_Request()
 {
-	char n;
+	int n;
 	int invalid_option = 0;
 	void (*fptr[2])();
 	fptr[0] = CreateVotingRequest;
@@ -12,15 +12,15 @@ void Voting_Request()
 	{
 		if(invalid_option < 3)
 		{
-			printf("Enter your choice :\n 1.Create Voting Request\n 2.Delete Voting Request\n *. Main menu\n");
-	        scanf(" %c",&n);
+			printf("Enter your choice :\n 1.Create Voting Request\n 2.Delete Voting Request\n 3.Main menu\n");
+	        scanf(" %d",&n);
 	        switch(n)
 	        {
-		    case '1' : fptr[0]();
+		    case 1 : fptr[0]();
 		               break;
-		    case '2' : fptr[1]();
+		    case 2 : fptr[1]();
 		               break;
-		    case '*' : main();
+		    case 3 : main();
 		               break;
 		    default  : invalid_option++;
 			           printf("Invalid choice.\n");
@@ -76,7 +76,7 @@ void CreateVotingRequest()
         	FILE*fp;
         	fp=fopen(a,"w");
         	int n;
-		printf("enter the fields for %s training form\n",c);
+		printf("Enter the fields for %s request form\n",c);
         	do//this will scan the fields for the .xls file 
         	{
                 	char read[MAX];
