@@ -1,6 +1,6 @@
 #include "main.h"
 #include "Voting_Request.h"
-
+#include "registration.h"
 void Voting_Request()
 {
 	int n;
@@ -22,7 +22,7 @@ void Voting_Request()
 		               break;
 		    case 3 : main();
 		               break;
-		    default  : invalid_option++;
+		    default : invalid_option++;
 			           printf("Invalid choice.\n");
 		               break;
 	        }	
@@ -91,7 +91,8 @@ void CreateVotingRequest()
 }
 void DeleteVotingRequest()
 {
-	char delete[SIZE];
+        delete();
+    /*	char delete[SIZE];
 	char d[MAX]; // scaning the file name for deletion
 	char b[MAX] = "_request.xls";
 	char sure;
@@ -131,6 +132,6 @@ void DeleteVotingRequest()
 	else
 	{
 		printf("%s  File does not created\n\n", d);
-	}
+	}*/
 }
 

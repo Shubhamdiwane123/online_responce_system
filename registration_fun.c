@@ -1,4 +1,16 @@
-#include"registration.h"
+#include "registration.h"
+
+void create();
+void delete();
+void send();
+//thread
+void*user_thread1();
+void*user_thread2();
+void*user_thread3();
+//
+//static int k=0;
+//static char*string[k][256];
+//mutex
 pthread_mutex_t lock;
 void registration_fun()// void registration function
 {
@@ -10,14 +22,14 @@ void registration_fun()// void registration function
         fptr[2] = send;
 	while(1)
 	{
-	printf("Do you want 1.create (or) 2.delete (or) 3.send (or) 4.main_mainu\nchoose(1/2/3/4)\n");
+	printf("Do you want 1.create (or) 2.delete (or) 3.send (or) 4.Main menu\nchoose(1/2/3/4)\n");
 	scanf(" %d",&n);// choosing a function
 	switch(n)
 	{
  	 	case 1:fptr[0]();break;
 		case 2:fptr[1]();break;
 		case 3:fptr[2]();break;
-		case 4:main();break;
+		case 4:main(); break;
 		default:--cnt_r;
 			 if(cnt_r<1)
 			 {
@@ -127,8 +139,13 @@ void delete()
 	char delete[BEAST];//delete string will present in this variable eg:-rm filename.xls
 	char d[MAX];//scanning file name for deletion
 	char b[MAX]="_training.xls";
+	char t[MAX]="_request.xls";
 	int i;
 	char sure;// asking for sure to delete
+	printf("1)Training file 2)Request file\n");
+	scanf(" %d",&i);
+	if(i==1)
+	{
 	if(system("ls *training.xls"))//this will list the file with .xls extension
 	{
 		printf("Training forms are not created\n");
@@ -145,7 +162,27 @@ void delete()
 	char *p=strstr(d,b);//cheaking string "_training.xls" is present or not.If it present it'll do nothing otherwise strcat will add  
 	if(p==NULL)
 		strcat(d,b);//"_training.xls"
-	
+	}
+	if(i==2)
+        {
+        if(system("ls *request.xls"))//this will list the file with .xls extension
+        {
+                printf("Request forms are not created\n");
+                return;
+        }
+        printf("Enter the file name to delete\n");
+        scanf(" %[^\n]",d);//scanning file name
+        for(i=0;d[i];i++)
+        {
+                if(d[i]==' ')
+                        d[i]='_';
+        }//this is for adding '_' in the place of space
+
+        char *p=strstr(d,t);//cheaking string "_request.xls" is present or not.If it present it'll do nothing otherwise strcat will add
+        if(p==NULL)
+                strcat(d,t);//"_request.xls"
+        }
+
 	snprintf(delete,sizeof(delete),"rm %s",d);//In delete it will add with "rm filename.xls"
 	if(!access(d,F_OK))//access is for checking the file is present or not
         {
@@ -166,6 +203,7 @@ void delete()
                 printf("%s\nfile does not created\n",d);
         }//if send file doesnot present else part will display
 }
+	
 void send()
 {
 	pthread_t tid[3];
