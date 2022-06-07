@@ -1,12 +1,12 @@
 #include"Voting_Responce.h"
 enum day{yes,no};
-#define M 50
-#define N 1000
-#define K 20
+//#define M 50
+//#define N 1000
+//#define K 20
 char s[M],s1[M],buf1[M],buf[N];
 FILE *f;
-void details();
-void check();
+//void details();
+//void check();
 pthread_mutex_t lock;
 int dummy()
 {
@@ -228,8 +228,4 @@ t2:	printf("enter choice\n1:Do you want to enter another data\n2:exit from file\
 		default:goto t2;
        }
 }
-
-
-
-
 

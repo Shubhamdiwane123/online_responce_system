@@ -339,7 +339,7 @@ thread:			scanf(" %[^\n]",scan);
                                         goto thread;
                                 }
                         }
-			if(k==6){
+			if(k==7){
                         fprintf(fp,"%s\t",scan);
 			}
 			else

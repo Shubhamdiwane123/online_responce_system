@@ -111,10 +111,12 @@ pthread_create(&tid,NULL,data_enter,fp2);
 
 pthread_join(tid,NULL);
 
-int ch;
-printf("Enter ' 0 ' to stop giving input\n");
-scanf("%d",&ch);
-if(ch == 0)
+char ch;
+printf("do you want to give another input y/n \n");
+getchar();
+scanf("%c",&ch);
+
+if(ch == 'n')
 {
 	break;
 }
@@ -142,7 +144,7 @@ void check_id()
 	{
 		k++;
 	}
-	if(k > SIZE-1)
+	if(k!=7)
 	{
 		printf("Employee id size exceede");
 		check_id();
