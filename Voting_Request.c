@@ -75,19 +75,49 @@ void CreateVotingRequest()
         	printf("%s\n",a);
         	FILE*fp;
         	fp=fopen(a,"w");
-        	int n;
-		printf("Enter the fields for %s request form\n",c);
-        	do//this will scan the fields for the .xls file 
+        	char n;
+		char p[30]="Name";
+		printf("Enter the fields for %s training form\n",c);
+		printf("Do you want to add Name in fields(y/n)\n");
+		scanf(" %c",&n);
+		if(n=='y'||n=='Y')
+		{
+			fprintf(fp,"%s\t",p);
+		}
+		printf("Do you want to add Emp_id in fields(y/n)\n");
+		scanf(" %c",&n);
+		if(n=='y'||n=='Y')
+		{
+		fprintf(fp,"%s\t","Emp_ID");
+		}
+		printf("Do you want to add Email_ID in fields(y/n)\n");
+        	scanf(" %c",&n);
+        	if(n=='y')
         	{
-                	char read[MAX];
-                	scanf(" %[^\n]",read);
-                	fprintf(fp,"%s\t",read);
-                	i++;
-			printf("Do you want add another field(y/n)\n");
-                	scanf(" %c",&field);
-       	 }while(field=='y'||field=='Y');
+                	fprintf(fp,"%s\t","Email_ID");
+        	}
+		printf("Do you want to add Mobile_No in fields(y/n)\n");
+        	scanf(" %c",&n);
+        	if(n=='y')
+        	{
+                	fprintf(fp,"%s\t","Mobile_No");
+        	}
+		printf("Do you want add another field(y/n)\n");
+		scanf(" %c",&n);
+		if(n=='y')
+		{	
+        		do//this will scan the fields for the .xls file 
+        		{
+                		char read[MAX];
+                		scanf(" %[^\n]",read);
+                		fprintf(fp,"%s\t",read);
+                		i++;
+				printf("Do you want add another field(y/n)\n");
+                		scanf(" %c",&field);
+        		}while(field=='y'||field=='Y');
+		}
 		fclose(fp);
-		printf("%s File is created\n\n",a);
+		printf("%s file is created\n\n",a);
 }
 void DeleteVotingRequest()
 {
