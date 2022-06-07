@@ -64,7 +64,7 @@ for (int j =1;j<=i;j++)
 }
 if(k==0)
 {
-	printf("No trainings are conducted ");
+	printf("No trainings are conducted \n");
 	return ;
 }
 printf("Below trainings have been conducted.\n");
@@ -90,7 +90,7 @@ fprintf(fp2,"EMAIL ID\t");
 fprintf(fp2,"REPORTING MANAGER\t");
 fprintf(fp2,"FEEDBACK\n");
 
-pthread_t tid[3];
+/*pthread_t tid[3];
 
 
 pthread_create(&tid[0],NULL,data_enter1,fp2);   // creating threads to store employee details
@@ -100,7 +100,27 @@ pthread_create(&tid[2],NULL,data_enter3,fp2);
 
 pthread_join(tid[0],NULL);
 pthread_join(tid[1],NULL);
-pthread_join(tid[2],NULL);
+pthread_join(tid[2],NULL);*/
+
+pthread_t tid;
+
+while(1)
+{
+
+pthread_create(&tid,NULL,data_enter,fp2);
+
+pthread_join(tid,NULL);
+
+int ch;
+printf("Enter ' 0 ' to stop giving input\n");
+scanf("%d",&ch);
+if(ch == 0)
+{
+	break;
+}
+
+}
+
 
 fclose(fp2);
 closedir(dir);
@@ -112,9 +132,19 @@ void check_id()
 	printf("\nEnter the Employee ID :");
 	//getchar();
 	scanf("%s",det.Emp_id);
+	int k=0,count=0;
 	if(det.Emp_id[0] != '0')
 	{
 		printf("\nWrong input give again\n");
+		check_id();
+	}
+	while(det.Emp_id[k] != '\0')
+	{
+		k++;
+	}
+	if(k > SIZE-1)
+	{
+		printf("Employee id size exceede");
 		check_id();
 	}
 }
@@ -203,7 +233,7 @@ void check_feedback()
 }
 
 
-void *data_enter1(FILE *fp2)
+void *data_enter(FILE *fp2)
 {
 	pthread_mutex_lock(&lock);
 	
