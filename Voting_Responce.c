@@ -1,16 +1,11 @@
 #include"Voting_Responce.h"
 enum day{yes,no};
-#define M 50
-#define N 1000
-#define K 20
 char s[M],s1[M],buf1[M],buf[N];
 FILE *f;
-void details();
-void check();
 pthread_mutex_t lock;
 int print(char *p)
 {
-	char s1[K]="Name",s2[K]="EMP_ID",s3[K]="Email_ID",s4[K]="Mobile_No",s5[K]="0210";//hardcoded names for some fileds
+	char s1[K]="Name",s2[K]="Emp_id",s3[K]="Email_ID",s4[K]="Mobile_No",s5[K]="0210";//hardcoded names for some fileds
 	int i=0;//for iterating the loop through this variable
 	if((strcmp(s1,buf1))==0)//comaparing harcoded name with user entered field name
 	{
@@ -34,7 +29,7 @@ int print(char *p)
 	{
 		int cnt=3;//taking variable for checking the condition of user data 
 		printf("%s",s2);//scanning data from user for respected filed
-	printf(":-please enter last 3 digits of id\n");//popup message 
+	        printf(":-please enter last 3 digits of id\n");//popup message 
 		scanf(" %[^\n]",s);//scanning the data from user
 		if((strlen(s))==(cnt))//comparing user entered data length and cnt length
 		{
@@ -88,7 +83,7 @@ int print(char *p)
 		{
 			for(i=0;s[i];i++)
 			{
-				if((s[i]>=48)&&(s[i]<=57))
+				if((s[i]>=48)&&(s[i]<=57))//checking condition for each index
 					continue;
 				else
 				{
@@ -119,7 +114,7 @@ void *p1(void *p)
 {
 	pthread_mutex_lock(&lock);
         details();//function for print the fileds data
-	printf("Details are recorded succesfully\n");
+	printf("Details are recorded succesfully\n");//printing data after each person details are recorded
 	pthread_mutex_unlock(&lock);
 }
 
@@ -151,7 +146,7 @@ void Voting_Responce()
 	scanf("%s",s1);//taking filename from user
 	strcat(s1,s2);
 	puts(s1);//displaying the filename
-	f=fopen(s1,"r");
+	f=fopen(s1,"r");//taking file and checking file is created or not
 	if(f==NULL)
 		printf("no excel has been created  for this request\n");
 	else
@@ -165,9 +160,9 @@ void Voting_Responce()
 		buf[i]='\0';
 		fclose(f);
 		pthread_t t1,t2,t3;//creating 3 threads to take data from 3 users
-		pthread_create(&t1,0,p1,0);
-	        pthread_create(&t2,0,p2,0);
-	        pthread_create(&t3,0,p3,0);
+		pthread_create(&t1,0,p1,0);//thread-1
+	        pthread_create(&t2,0,p2,0);//thread-2
+	        pthread_create(&t3,0,p3,0);//thread-3
 		pthread_join(t1,0);
 		pthread_join(t2,0);
 		pthread_join(t3,0);
@@ -177,7 +172,7 @@ void Voting_Responce()
 
 void details()
 {
-	char ch='\n';
+	char ch='\n';//after taking details of each user setting the cursor to next line
 	int i=0,j=0;
 	f=fopen(s1,"a");
 	fputc(ch,f); 

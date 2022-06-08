@@ -51,7 +51,7 @@ for (int j =1;j<=i;j++)
 				break;
 		}
 		fclose(fp);
-		printf("%d\n",count);
+		//printf("%d\n",count);
 		if(count > 1)     // checking whether the responses are saved or not
 				   // if resopnses saved then files will store to stf
 		{
@@ -72,14 +72,10 @@ for(int j = 1; j<=k;j++)
 {
 	printf("%d. %s \n",j,stf[j][30]);    // displaying the completed training files
 }
-int opt;
-printf("Enter no. of the file that you want to give feedback\n");
-scanf("%d",&opt);
+int opt = check_opt(k);
 char fn[30];
 strcpy(fn,stf[opt][30]);
-printf("%s",fn);
-//printf("selected option is %d",opt);
-//---------------------------------------------
+
 char* split = strtok(fn,".");
 strcat(split,"_feedback.xls");
 
@@ -89,18 +85,6 @@ fprintf(fp2,"EMP NAME\t");
 fprintf(fp2,"EMAIL ID\t");
 fprintf(fp2,"REPORTING MANAGER\t");
 fprintf(fp2,"FEEDBACK\n");
-
-/*pthread_t tid[3];
-
-
-pthread_create(&tid[0],NULL,data_enter1,fp2);   // creating threads to store employee details
-pthread_create(&tid[1],NULL,data_enter2,fp2);
-pthread_create(&tid[2],NULL,data_enter3,fp2);
-
-
-pthread_join(tid[0],NULL);
-pthread_join(tid[1],NULL);
-pthread_join(tid[2],NULL);*/
 
 pthread_t tid;
 
@@ -127,6 +111,31 @@ if(ch == 'n')
 fclose(fp2);
 closedir(dir);
 return ;
+}
+int check_opt(int k)
+{
+static int count = 3;
+int opt;
+printf("Enter the file number that you want to give feedback\n");
+
+scanf("%d",&opt);
+
+if(opt <= k && opt > 0)
+{
+	return opt;
+}
+else
+{
+	printf("Invalid input.\n");
+	count--;
+	if(count == 0)
+	{
+		printf("\nYou have given wrong input three times\n\n");
+		main();
+	}
+	check_opt(k);
+}
+
 }
 
 void check_id()

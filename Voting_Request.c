@@ -88,7 +88,7 @@ void CreateVotingRequest()
 		scanf(" %c",&n);
 		if(n=='y'||n=='Y')
 		{
-		fprintf(fp,"%s\t","Emp_ID");
+		fprintf(fp,"%s\t","Emp_id");
 		}
 		printf("Do you want to add Email_ID in fields(y/n)\n");
         	scanf(" %c",&n);
