@@ -38,7 +38,7 @@ void Training()// function for training registration and feedback
 	void (*training[])()={registration_fun,feedback_func};
 	while(1)
 	{
-		printf("1.registration_fun 2. feedback 3.main_mainu\n");
+		printf("1.registration 2. feedback 3.main_menu\n");
 		printf("enter your choice\n");
 		scanf("%d",&choice_t);
 		switch(choice_t)
