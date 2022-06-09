@@ -11,7 +11,7 @@ void registration_fun()// void registration function
         fptr[2] = send;
 	while(1)
 	{
-	printf("Do you want 1.create (or) 2.delete (or) 3.send (or) 4.Exit\nchoose(1/2/3/4)\n");
+	printf("Enter your choice 1.create 2.delete 3.send 4.main_menu\n");
 	scanf(" %d",&n);// choosing a function
 	switch(n)
 	{
