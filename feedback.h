@@ -1,10 +1,12 @@
 #include"main.h"
 #include<ctype.h>
 #include<dirent.h>
-#define FEED 256
+#define FEED 9
 #define NAME_SIZE 80
-#define SIZE 8
+#define SIZE 10
 pthread_mutex_t lock;
+char Tf[30];
+int Li;
 int check_opt(int);
 void *data_enter();
 //void *data_enter2();
@@ -17,6 +19,7 @@ typedef struct Employee
 	char Name[NAME_SIZE];
 	char Email_id[NAME_SIZE];
 	char Reporting_manager[NAME_SIZE];
-	char Feedback[FEED];	
+	char Feedback[FEED];
+	//int Li;	
 }Emp_d;
 Emp_d det;
