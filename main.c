@@ -69,7 +69,7 @@ void Voting()// function for voating request and responce
         void (*voting[])()={Voting_Request,Voting_Responce};
         while(1)
         {
-                printf("1.request 2.responce 3.main_mainu\n");
+                printf("1.request 2.responce 3.main_menu\n");
                 printf("enter your choice\n");
                 scanf("%d",&choice_v);
                 switch(choice_v)
