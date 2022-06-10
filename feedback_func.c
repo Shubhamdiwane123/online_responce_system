@@ -179,7 +179,7 @@ void check_id()
 	if(count == 0)
 	{
 		printf("\nYou have given wrong input three times\n\n");
-		main();	
+		Training();	
 	}
 
 	if(det.Emp_id[0] != '0')
@@ -219,7 +219,7 @@ void check_name()
 		if(count == 0)
 		{
 			printf("\nYou have given wrong input three times\n\n");
-			main();	
+			Training();	
 		}
 		if(det.Name[k]==' ' || (det.Name[k] >= 65 && det.Name[k] <= 90) || (det.Name[k] >= 97 && det.Name[k]<=122))
 		{
@@ -244,7 +244,7 @@ void check_email()
 	if(count == 0)
 	{
 		printf("\nYou have given wrong input three times\n\n");
-		main();	
+		Training();	
 	}
 	if(!strstr(det.Email_id,Email_check))
 	{
@@ -279,7 +279,7 @@ void check_reporting_manager()
 	if(count == 0)
 	{
 		printf("\nYou have given wrong input three times\n\n");
-		main();	
+		Training();	
 	}
 	while(det.Reporting_manager[k] != '\0')
 	{
@@ -307,7 +307,7 @@ void check_feedback()
 	if(count == 0)
 	{
 		printf("\nYou have given wrong input three times\n\n");
-		main();	
+		Training();	
 	}
 	while(det.Feedback[k] != '\0')
 	{
