@@ -150,8 +150,11 @@ scan:
 void delete()
 {
 	char delete[BEAST];//delete string will present in this variable eg:-rm filename.xls
+	char del[BEAST];
 	char d[MAX];//scanning file name for deletion
 	char b[MAX]="_training.xls";
+	char q[MAX]="_training_feedback.xls";
+	char qq[MAX];
 	int i;
 	char sure;// asking for sure to delete
 	if(system("ls *training.xls"))//this will list the file with .xls extension
@@ -166,11 +169,16 @@ void delete()
                 if(d[i]==' ')
                         d[i]='_';
         }//this is for adding '_' in the place of space
-
+	strcpy(qq,d);
 	char *p=strstr(d,b);//cheaking string "_training.xls" is present or not.If it present it'll do nothing otherwise strcat will add  
+	char *pp=strstr(qq,q);
 	if(p==NULL)
 		strcat(d,b);//"_training.xls"
-	snprintf(delete,sizeof(delete),"rm %s",d);//In delete it will add with "rm filename.xls"
+	if(pp==NULL)
+		strcat(qq,q);
+		
+		snprintf(delete,sizeof(delete),"rm %s",d);//In delete it will add with "rm filename.xls"
+		snprintf(del,sizeof(del),"rm %s",qq);
 	if(!access(d,F_OK))//access is for checking the file is present or not
         {
 	printf("Are you sure, you want to delete this file(y/n)\n");
@@ -188,6 +196,25 @@ void delete()
 	else
         {
                 printf("%s\nfile is not created\n",d);
+        }//if send file doesnot present else part will display
+        
+        if(!access(qq,F_OK))//access is for checking the file is present or not
+        {
+	printf("Are you sure, you want to delete feedback file also (y/n)\n");
+	scanf(" %c",&sure);
+	if(sure=='Y'||sure=='y')
+	{
+		system(del);//delete that particular file
+		printf("%s is deleted\n",qq);//it will print that deleted file
+	}
+	else
+	{
+		printf("%s is not deleted\n",qq);// if we give no at sure choice the else will print
+	}
+	}
+	else
+        {
+                printf("%s\nfeedback file is not created\n",qq);
         }//if send file doesnot present else part will display
 }
 void send()
