@@ -11,7 +11,7 @@ int main()
 		printf("1.Training 2.Voting 3.exit\n");
 		printf("enter your choice\n");
 		scanf("%d",&choice_main);
-		if(choice_main>=0 && choice_main<=9)
+		if(choice_main>=0 && choice_main<=9)//for checking enter input is integer or not
 		{
 			switch(choice_main)
 			{
@@ -33,10 +33,10 @@ int main()
 					 }
 			}
 		}
-		else
+		else// if enter input is not integer then it go in these part
 		{
 			--count;
-			if(count<1)
+			if(count<1)//if user enter more than three time wrong input then it go in that 
 			{
 				printf("you enter more than three time wrong option that's why application is closed\n");
 				exit(0);
@@ -58,7 +58,8 @@ void Training()// function for training registration and feedback
 		printf("1.registration 2. feedback 3.main_menu\n");
 		printf("enter your choice\n");
 		scanf("%d",&choice_t);
-		if(choice_t>=0 && choice_t<=9)
+		if(choice_t>=0 && choice_t<=9) //for checking enter input is integer or not
+
 		{
 			switch(choice_t)
 			{
@@ -80,7 +81,8 @@ void Training()// function for training registration and feedback
 					}
 			}
 		}
-		else
+		else // if enter input is not integer then it go in these part
+
 		{
 			--count_t;
 			if(count_t<1)
@@ -105,7 +107,8 @@ void Voting()// function for voating request and responce
 		printf("1.request 2.responce 3.main_menu\n");
 		printf("enter your choice\n");
 		scanf("%d",&choice_v);
-		if(choice_v>=0 && choice_v<=9)
+		if(choice_v>=0 && choice_v<=9) //for checking enter input is integer or not
+
 		{
 			switch(choice_v)
 			{
@@ -127,17 +130,18 @@ void Voting()// function for voating request and responce
 					}
 			}
 		}
-			else
+		else // if enter input is not integer then it go in these part
+
+		{
+			--count_v;
+			if(count_v<1)
 			{
-				--count_v;
-				if(count_v<1)
-				{
-					printf("you enter more than three time wrong option that's why it go main menu\n");
-					main();
-				}
-				else
-					printf("invalid option you  have only %d chance\n",count_v);
+				printf("you enter more than three time wrong option that's why it go main menu\n");
+				main();
 			}
+			else
+				printf("invalid option you  have only %d chance\n",count_v);
+		}
 	}
 
 }

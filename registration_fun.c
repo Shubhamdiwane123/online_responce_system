@@ -268,8 +268,8 @@ thread:			scanf(" %[^\n]",scan);
 					//printf("only character should allowed\nname:-");
 		                        if(cnt<1)
                 		        {
-                                		printf("you choose the wrong option more than three times that's why application is closed\n");
-		                                exit(0);
+                                		printf("you choose the wrong option more than three times that's why it go main menu\n");
+		                                registration_fun();
 		                        }
                 		        else
                         		{
@@ -306,8 +306,8 @@ thread:			scanf(" %[^\n]",scan);
 				--cnt;
                                         if(cnt<1)
                                         {
-                                                printf("you choose the wrong option more than three times that's why application is closed\n");
-                                                exit(0);
+                                                printf("you choose the wrong option more than three times that's why it go to main menu\n");
+                                                registration_fun();
                                         }
                                         else
                                         {
@@ -336,8 +336,8 @@ thread:			scanf(" %[^\n]",scan);
                                         --cnt;
                                         if(cnt<1)
                                         {
-                                                printf("you choose the wrong option more than three times that's why application is closed\n");
-                                                exit(0);
+                                                printf("you choose the wrong option more than three times that's why it go to main menu\n");
+                                                registration_fun();
                                         }
                                         else
                                         {
@@ -364,8 +364,8 @@ thread:			scanf(" %[^\n]",scan);
                                          --cnt;
                                         if(cnt<1)
                                         {
-                                                printf("you choose the wrong option more than three times that's why application is closed\n");
-                                                exit(0);
+                                                printf("you choose the wrong option more than three times that's why it go main menu\n");
+                                                registration_fun();
                                         }
                                         else
                                         {
@@ -383,8 +383,8 @@ thread:			scanf(" %[^\n]",scan);
 				--cnt;
                                         if(cnt<1)
                                         {
-                                                printf("you choose the wrong option more than three times that's why application is closed\n");
-                                                exit(0);
+                                                printf("you choose the wrong option more than three times that's why it go to main menu\n");
+                                                registration_fun();
                                         }
                                         else
                                         {
