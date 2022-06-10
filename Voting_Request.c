@@ -1,4 +1,3 @@
-#include "main.h"
 #include "Voting_Request.h"
 void Voting_Request(int n)
 {
@@ -53,23 +52,23 @@ void CreateVotingRequest()
 			}
 			if(a[0] == '_' || a[0] >= '0' && a[0] <= '9')
 			{
-				printf("Wrong format\n");
+				printf("Wrong format...\nPlease input valid excel file name :\n");
 				goto scan;
 			}
 			if(a[i] >= '0' && a[i] <= '9' && a[i+1] >= 'a' && a[i+1] <= 'z')
 			{
-				printf("Wrong format\n");
+				printf("Wrong format...\nPlease input valid excel file name :\n");
 				goto scan;
 			}
 			if(a[i] >= '0' && a[i] <= '9' && a[i+1] >= 'A' && a[i+1] <= 'Z')
 			{
-				printf("Wrong format\n");
+				printf("Wrong format...\nPlease input valid excel file name :\n");
 				goto scan;
 			}
 			if(a[i] >= '!' && a[i] <= '/' || a[i] >= ':' && a[i] <= '@' || a[i] >= '[' && a[i] <= '`' || a[i] >= '{' && a[i] <= '~')
 			{
-			printf("Wrong format\n");
-			goto scan;
+				printf("Wrong format...\nPlease input valid excel file name :\n");
+				goto scan;
 			}
 		}
 		strcpy(c,a);
