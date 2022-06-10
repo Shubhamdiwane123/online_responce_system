@@ -1,37 +1,54 @@
+#include "main.h"
 #include "Voting_Request.h"
 void Voting_Request(int n)
 {
-	int invalid_option = 0;
+	int invalid_option = 4;
 	void (*fptr[2])();
 	fptr[0] = CreateVotingRequest;
 	fptr[1] = DeleteVotingRequest;
 	while(1)
 	{
-		if(invalid_option < 3)
-		{
-			printf("Enter your choice :\n 1.Create Voting Request\n 2.Delete Voting Request\n 3.Main Menu\n");
+		__fpurge(stdin);
+		printf("Enter your choice :\n 1.Create Voting Request\n 2.Delete Voting Request\n 3.Main Menu\n");
 	        scanf(" %d",&n);
-	        switch(n)
-	        {
-		    case 1 : fptr[0]();
-		               break;
-		    case 2 : fptr[1]();
-		               break;
-		    case 3 : main();
-		               break;
-		    default : invalid_option++;
-			           printf("Invalid choice.\n");
-		               break;
-	        }	
+	        if(n >=0 && n <= 9)
+	        { 
+	        	switch(n)
+	        	{
+		    		case 1 : fptr[0]();
+		               	 break;
+		    		case 2 : fptr[1]();
+		               	 break;
+		    		case 3 : main();
+		                        break;
+		    		default :--invalid_option;
+			       	if( invalid_option < 1)
+			       	{
+			       		printf("\nError: User entered Invalid Option for three times\n\n");
+			       		main();
+			       	}
+			       	else
+			       	{
+			       		printf("You have entered invalid option... You have only %d chance\n\n",invalid_option);
+			       		break;
+			       	}	 
+	        	}	
 		}
-	    else
-	    {
-	    	printf("\nError: User entered Invalid Option for three times\n\n");
-			main();
-	    }
-    }
+	        else
+	        {
+	        	--invalid_option;
+	        	if( invalid_option < 1)
+			{
+				printf("\nError: User entered Invalid Option for three times\n\n");
+			        main();
+			}
+			else
+				printf("You have entered invalid option... You have only %d chance\n\n",invalid_option);
+			        break;
+				
+	        }
 }
-
+}
 /* Funtion to input the voting request name and based on the voting request name, voting request form will be created with the fields mentioned by the user */
 void CreateVotingRequest()
 {
