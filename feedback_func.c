@@ -22,7 +22,7 @@ void feedback_func()
 		}
 		entity = readdir(dir);
 		}
-
+		closedir(dir);
 
 
 
@@ -32,7 +32,7 @@ void feedback_func()
 	int count=1;			// declared stf to store send training files : done trainng files 
 	for (int j =1;j<=i;j++)
 	{
-	
+		
 		fp = fopen(ctf[j][30],"r");
 		if(fp == NULL)
 		{
@@ -53,8 +53,8 @@ void feedback_func()
 				if(feof(fp))
 					break;
 			}
+
 			fclose(fp);
-		printf("%d\n",Li);
 			if(count > 1)     // checking whether the responses are saved or not
 				   // if resopnses saved then files will store to stf
 			{
@@ -71,7 +71,10 @@ void feedback_func()
 		printf("No trainings are conducted \n");
 		return ;
 	}
-			printf("Below trainings have been conducted.\n");
+        printf("Below trainings have been conducted.\n");
+        
+        
+      
 	for(int j = 1; j<=k;j++)
 	{
 		printf("%d. %s \n",j,stf[j][30]);    // displaying the completed training files
@@ -81,20 +84,52 @@ void feedback_func()
 	strcpy(fn,stf[opt][30]);
 	strcpy(Tf,fn);
 	
-	char* split = strtok(fn,".");
+	split = strtok(fn,".");
 	strcat(split,"_feedback.xls");
-	FILE *fp2 = fopen(split,"w");
-	fprintf(fp2,"EMP ID\t");
-	fprintf(fp2,"EMP NAME\t");
-	fprintf(fp2,"EMAIL ID\t");
-	fprintf(fp2,"REPORTING MANAGER\t");
-	fprintf(fp2,"FEEDBACK\n");
 	
+	DIR *dir2 = opendir(".");
+	struct dirent* entity2;
+	entity2= readdir(dir2);
+	int flag =0;
+	while(entity2 != NULL)
+	{
+		if(strcmp(split,entity2->d_name)==0)
+		{
+			flag = 1;
+			break;
+		}
+		entity2= readdir(dir2);
+	}
+	if(flag == 1)
+	{
+		pcreate(lines);
+	}
+	else {
+		FILE *fp2 = fopen(split,"w");
+		fprintf(fp2,"EMP ID\t");
+		fprintf(fp2,"EMP NAME\t");
+		fprintf(fp2,"EMAIL ID\t");
+		fprintf(fp2,"REPORTING MANAGER\t");
+		fprintf(fp2,"FEEDBACK\n");
+		fclose(fp2);
+		pcreate(lines);
+	}
+	
+	
+
+	
+	closedir(dir2);
+	return ;
+}
+
+void pcreate(int lines)
+{
+
 	pthread_t tid;
 	while(1)
 	{
 
-		pthread_create(&tid,NULL,data_enter,fp2);
+		pthread_create(&tid,NULL,data_enter,split);
 
 		pthread_join(tid,NULL);
 		
@@ -116,9 +151,6 @@ void feedback_func()
 	}
 
 
-	fclose(fp2);
-	closedir(dir);
-	return ;
 }
 int check_opt(int k)
 {
@@ -146,25 +178,29 @@ int check_opt(int k)
 	}
 
 }
-int check_data(char data[])
+int check_data()
 {
-	int m = Li;
+	//int m = 0;
 	FILE *f = fopen(Tf,"r");
-	char buffer[FEED];
-	int flag=0;
-//	printf("%d",m);
-	for(int i=1;i<=m;i++)
+	FILE *fp = fopen(Tf,"r");
+	
+	int flag=0,i=0;
+	char c;
+	while(!feof(f))
 	{
-	
-		fscanf(f,"%[^\t]%*c",buffer);
-		if(strcmp(data,buffer)==0)
+		char buffer[FEED];
+		fscanf(f,"%s\t",buffer);
+		strcat(buffer,"\0");
+		if(strcmp(det.Emp_id,buffer)== 0)
 		{
-	
+		
 			flag = 1;
 			return flag;
 		}
+		strcat(buffer,"\0");
 		
 	}
+	
 	return flag;
 
 }
@@ -199,11 +235,31 @@ void check_id()
 		printf("Employee id size exceede");
 		check_id();
 	}
-	int flag = check_data(det.Emp_id);
+	int flag = check_data();
 	if(flag == 0)
 	{
+		count--;
 		printf("%s employee not taken training",det.Emp_id);
 		check_id();
+	}
+	else
+	{
+		FILE *fp = fopen(split,"r");
+		while(!feof(fp))
+		{
+			char buffer[FEED];
+			fscanf(fp,"%s\t",buffer);
+			strcat(buffer,"\0");
+			if(strcmp(det.Emp_id,buffer)==0)
+			{
+				count--;
+				printf("%s has given feedback already.\n",det.Emp_id);
+				check_id();
+			}
+	
+		}
+		return;
+	
 	}
 }
 void check_name()
@@ -332,11 +388,12 @@ void check_feedback()
 }
 
 
-void *data_enter(FILE *fp2)
+void *data_enter(char split[])
 {
+	FILE *fp2 = fopen(split,"a");
 	pthread_mutex_lock(&lock);
 	
-	check_id();
+	check_id(split);
 	
 	check_name();
 	
@@ -348,6 +405,7 @@ void *data_enter(FILE *fp2)
 	
 	write_data(fp2);
 	pthread_mutex_unlock(&lock);
+	fclose(fp2);
 }
 
 void *data_enter2(FILE *fp2)
