@@ -35,7 +35,7 @@ int print(char *p)
 	}
 	if((strcmp(s2,buf1))==0)
 	{
-		
+
 		int cnt=10;
 		static int c=3,k=0;//taking variable for checking the condition of user data 
 		char buf[30],*h;
@@ -48,12 +48,12 @@ int print(char *p)
 		printf("%s",s2);//scanning data from user for respected filed
 		scanf(" %[^\n]",s);//scanning the data from user
 		/*if(h=strstr(h,s))
-		{
-                 printf("Response has been taken from this id\n");
-		 c--;
-		 print(p);
-		}*/
-		 if((strlen(s))<=(cnt))//comparing user entered data length and cnt length
+		  {
+		  printf("Response has been taken from this id\n");
+		  c--;
+		  print(p);
+		  }*/
+		if((strlen(s))<=(cnt))//comparing user entered data length and cnt length
 		{
 			for(i=0;s[i];i++)
 			{
@@ -75,13 +75,13 @@ int print(char *p)
 				}
 			}
 			/*if(s[i]=='\0')
-			{
-				for(i=0;s[i];i++)
-				b[k++]=s[i];
-			        b[k++]=',';
-				puts(b);
-			}*/
-			
+			  {
+			  for(i=0;s[i];i++)
+			  b[k++]=s[i];
+			  b[k++]=',';
+			  puts(b);
+			  }*/
+
 		}
 		else
 		{
@@ -193,139 +193,185 @@ void *p2(void *p)
 	pthread_mutex_lock(&lock);
 
 	int c;
-		printf("press 1:Do you want to take another response\n");
+	int cnt_p2=4;
+	while(1)
+	{
+		printf("press 1:Do you want to take another response\n2:main menu\n");
 		scanf("%d",&c);
 		if(c==1)
 		{
 			details();
 			printf("Details are recorded succesfully\n");
+			break;
 		}
-		else 
+		else if(c==2)
+		{
 			main();
+			break;
+		}
+		else
+		{
+			--cnt_p2;
+			if(cnt_p2<1)
+			{
+				printf("you enter more than three times invalid option that's why it go to main menu\n");
+				main();
+			}
+			else
+			{
+				printf("your enter invalid option you have only %d chance\n",cnt_p2);
 
-		pthread_mutex_unlock(&lock);
-	
+			}
+			}
+	}
+
+	pthread_mutex_unlock(&lock);
+
 }
-	void *p3(void *p)
+void *p3(void *p)
+{
+	int c;
+	int cnt_p3=4;
+	pthread_mutex_lock(&lock);
+	while(1)
 	{
-		pthread_mutex_lock(&lock);
-		int c;
-		printf("press 1:Do you want to take another response\n");
+
+		printf("press 1:Do you want to take another response\n2:main menu\n");
 		scanf("%d",&c);
 		if(c==1)
 		{
 			details();
-		printf("Details are recorded succesfully\n");
+			printf("Details are recorded succesfully\n");
+			break;
+		}
+		else if(c==2)
+		{
+			main();
+			break;
 		}
 		else 
-			main();
-		pthread_mutex_unlock(&lock);
-	}
-	void Voting_Responce()
-	{
-		FILE *f;
-		char c;
-		int i=0,l=0;
-		char o[20]="request.xls";
-		char b[20]="_request.xls";
-		DIR *d;
-		struct dirent *dir;
-		d=opendir(".");
-		if(d)
 		{
-
-			while((dir=readdir(d))!=NULL)
+			--cnt_p3;
+			if(cnt_p3<1)
 			{
-
-
-				if(strstr(dir->d_name,o))
-				{
-					l=1;
-					printf("%s\n",dir->d_name);
-				}
-
-			}
-			closedir(d);
-		}
-		if(l==0)
-		{
-			printf("no requests are created\n");
-			main();
-		}
-		printf("enter your request form\n");
-		scanf("%s",s1);//taking filename from user
-		strcat(s1,b);
-		f=fopen(s1,"r");//taking file and checking file is created or not
-		if(f==NULL)
-			printf("no excel has been created  for this request\n");
-		else
-		{
-			while((c=fgetc(f))!=EOF)//storing each charector into buffer
-			{
-				buf[i++]=c;
-
-			}
-
-			buf[i]='\0';
-			fclose(f);
-			pthread_t t[3];//creating 3 threads to take data from 3 users
-			pthread_create(&t[0],0,p1,0);//thread-1
-			pthread_create(&t[1],0,p2,0);//thread-2
-			pthread_create(&t[2],0,p3,0);//thread-3
-			pthread_join(t[0],0);
-			pthread_join(t[1],0);
-			pthread_join(t[2],0);
-		}
-	}
-
-
-	void details()
-	{
-		FILE *f;
-		char ch='\n',b[100];//after taking details of each user setting the cursor to next line
-		int i=0,j=0;
-		int k=0;
-		static int h=0;
-		f=fopen(s1,"a");
-		fputc(ch,f); 
-		fclose(f);
-		for(i=0;buf[i];i++)//loop for checking each charector and performing operation 
-		{
-			if(buf[i]=='"')
-				continue;
-
-			if((buf[i]==',')||(buf[i]=='\t')||(buf[i+1]=='\0'))//taking the charectors and storing into buffer 
-			{
-				buf1[j]='\0';//placing null after taking data upto tab
-				j=0;
-				if(print(buf1))//calling print function and checking condition for given strings
-				{
-					for(k=0;s[k];k++)
-					{
-						b[h++]=s[k];
-					}
-					b[h++]='\t';
-					/*f=fopen(s1,"a");
-					  fprintf(f,"%s\t",s);//printing the data into file
-					  fclose(f);*/
-				}
+				printf("you enter more than three times invalid option that's why it go to main menu\n");
+				main();
 			}
 			else
 			{
-				buf1[j++]=buf[i];//storing each charector into 
+				printf("your enter invalid option you have only %d chance\n",cnt_p3);
+
+			}
+		}
+	}
+
+	pthread_mutex_unlock(&lock);
+}
+void Voting_Responce()
+{
+	FILE *f;
+	char c;
+	int i=0,l=0;
+	char o[20]="request.xls";
+	char b[20]="_request.xls";
+	DIR *d;
+	struct dirent *dir;
+	d=opendir(".");
+	if(d)
+	{
+
+		while((dir=readdir(d))!=NULL)
+		{
+
+
+			if(strstr(dir->d_name,o))
+			{
+				l=1;
+				printf("%s\n",dir->d_name);
 			}
 
 		}
-
-		if(buf[i]=='\0')
-		{
-			b[h]='\0';
-			f=fopen(s1,"a");
-			fputs(b,f);
-			fclose(f);
-			h=0;
-		}
+		closedir(d);
 	}
+	if(l==0)
+	{
+		printf("no requests are created\n");
+		main();
+	}
+	printf("enter your request form\n");
+	scanf("%s",s1);//taking filename from user
+	strcat(s1,b);
+	f=fopen(s1,"r");//taking file and checking file is created or not
+	if(f==NULL)
+		printf("no excel has been created  for this request\n");
+	else
+	{
+		while((c=fgetc(f))!=EOF)//storing each charector into buffer
+		{
+			buf[i++]=c;
+
+		}
+
+		buf[i]='\0';
+		fclose(f);
+		pthread_t t[3];//creating 3 threads to take data from 3 users
+		pthread_create(&t[0],0,p1,0);//thread-1
+		pthread_join(t[0],0);
+		pthread_create(&t[1],0,p2,0);//thread-2
+		pthread_join(t[1],0);
+		pthread_create(&t[2],0,p3,0);//thread-3
+		pthread_join(t[2],0);
+	}
+}
+
+
+void details()
+{
+	FILE *f;
+	char ch='\n',b[100];//after taking details of each user setting the cursor to next line
+	int i=0,j=0;
+	int k=0;
+	static int h=0;
+	f=fopen(s1,"a");
+	fputc(ch,f); 
+	fclose(f);
+	for(i=0;buf[i];i++)//loop for checking each charector and performing operation 
+	{
+		if(buf[i]=='"')
+			continue;
+
+		if((buf[i]==',')||(buf[i]=='\t')||(buf[i+1]=='\0'))//taking the charectors and storing into buffer 
+		{
+			buf1[j]='\0';//placing null after taking data upto tab
+			j=0;
+			if(print(buf1))//calling print function and checking condition for given strings
+			{
+				for(k=0;s[k];k++)
+				{
+					b[h++]=s[k];
+				}
+				b[h++]='\t';
+				/*f=fopen(s1,"a");
+				  fprintf(f,"%s\t",s);//printing the data into file
+				  fclose(f);*/
+			}
+		}
+		else
+		{
+			buf1[j++]=buf[i];//storing each charector into 
+		}
+
+	}
+
+	if(buf[i]=='\0')
+	{
+		b[h]='\0';
+		f=fopen(s1,"a");
+		fputs(b,f);
+		fclose(f);
+		h=0;
+	}
+}
 
 
 
