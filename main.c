@@ -100,11 +100,11 @@ void Voting()// function for voating request and responce
 {
 	int choice_v;// for choose option
 	int cnt_v=4,count_v=4;// for counting how many times user chosing wrong options
-	void (*voting[])()={Voting_Request,Voting_Responce};
+	void (*voting[])()={Voting_Request,Voting_Response};
 	while(1)
 	{
 		__fpurge(stdin);
-		printf("1.request 2.responce 3.main_menu\n");
+		printf("1.request 2.response 3.main_menu\n");
 		printf("enter your choice\n");
 		scanf("%d",&choice_v);
 		if(choice_v>=0 && choice_v<=9) //for checking enter input is integer or not

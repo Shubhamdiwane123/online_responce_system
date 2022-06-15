@@ -12,4 +12,4 @@ void Voting();// for voating request and responce
 void registration_fun();// for training registration
 void feedback_func();// for training feedback
 void Voting_Request();// for voating request
-void Voting_Responce();// for voating responce
+void Voting_Response();// for voating responce

@@ -2,7 +2,7 @@
 #include "feedback.h"
 void feedback_func()
 {
-	DIR * dir = opendir(".");		// to oprn directory
+	DIR* dir = opendir(".");		// to oprn directory
 	if(dir == NULL)
 	{
 		return ;
@@ -10,34 +10,33 @@ void feedback_func()
 		struct dirent* entity;
 		entity = readdir(dir);
 		int i=0;
-		char *ctf[i][30];   			// declared ctf to store created training files			
+		char *ctf[i][NAME_SIZE];   			// declared ctf to store created training files			
 		char check[]="_training.xls";
 		while(entity != NULL)
 		{
 		if(strstr(entity->d_name,check) && !strstr(entity->d_name,"#"))
 		{
 			i++;
-			ctf[i][30]=entity->d_name;		// created training files will store here
+			ctf[i][NAME_SIZE]=entity->d_name;		// created training files will store here
 
 		}
 		entity = readdir(dir);
 		}
-		closedir(dir);
-
-
+		//closedir(dir);
 
 	FILE *fp;
 	int k=0;
-	char *stf[k][30];
+	char *stf[k][NAME_SIZE];
 	int count=1;			// declared stf to store send training files : done trainng files 
 	for (int j =1;j<=i;j++)
 	{
 		
-		fp = fopen(ctf[j][30],"r");
+		fp = fopen(ctf[j][NAME_SIZE],"r");
+		
 		if(fp == NULL)
 		{
 		
-			printf("file didnt present");
+			printf("unable to open the file %s\n",ctf[j][NAME_SIZE]);
 			return ;
 		}
 		else{
@@ -59,7 +58,7 @@ void feedback_func()
 				   // if resopnses saved then files will store to stf
 			{
 				k++;
-				stf[k][30]=ctf[j][30];
+				stf[k][NAME_SIZE]=ctf[j][NAME_SIZE];
 					
 			}
 		}
@@ -77,11 +76,11 @@ void feedback_func()
       
 	for(int j = 1; j<=k;j++)
 	{
-		printf("%d. %s \n",j,stf[j][30]);    // displaying the completed training files
+		printf("%d. %s \n",j,stf[j][NAME_SIZE]);    // displaying the completed training files
 	}
 	int opt = check_opt(k);
-	char fn[30];
-	strcpy(fn,stf[opt][30]);
+	char fn[NAME_SIZE];
+	strcpy(fn,stf[opt][NAME_SIZE]);
 	strcpy(Tf,fn);
 	
 	split = strtok(fn,".");
@@ -217,7 +216,17 @@ void check_id()
 		printf("\nYou have given wrong input three times\n\n");
 		Training();	
 	}
-
+	while(det.Emp_id[k] != '\0')
+	{
+		
+		if(!(det.Emp_id[k] >= 48 && det.Emp_id[k] <= 57) )
+		{
+			count--;
+			printf("\nNo characters are not allowed\n");
+			check_id();
+		}
+		k++;
+	}
 	if(det.Emp_id[0] != '0')
 	{
 		count--;
@@ -225,21 +234,18 @@ void check_id()
 		
 		check_id();
 	}
-	while(det.Emp_id[k] != '\0')
-	{
-		k++;
-	}
+	
 	if(k>=SIZE)
 	{
 		count--;
-		printf("Employee id size exceede");
+		printf("\nEmployee id size exceede\n");
 		check_id();
 	}
 	int flag = check_data();
 	if(flag == 0)
 	{
 		count--;
-		printf("%s employee not taken training",det.Emp_id);
+		printf("\n%s employee not taken training\n",det.Emp_id);
 		check_id();
 	}
 	else
@@ -253,7 +259,7 @@ void check_id()
 			if(strcmp(det.Emp_id,buffer)==0)
 			{
 				count--;
-				printf("%s has given feedback already.\n",det.Emp_id);
+				printf("\n%s has given feedback already.\n",det.Emp_id);
 				check_id();
 			}
 	
@@ -277,6 +283,11 @@ void check_name()
 			printf("\nYou have given wrong input three times\n\n");
 			Training();	
 		}
+		if(strstr(det.Name,"  "))
+		{
+			printf("\nMore than one space between names are not allowed\n");
+			check_name();
+		}
 		if(det.Name[k]==' ' || (det.Name[k] >= 65 && det.Name[k] <= 90) || (det.Name[k] >= 97 && det.Name[k]<=122))
 		{
 			k++;
@@ -284,7 +295,7 @@ void check_name()
 		else
 		{
 			count--;
-			printf("\nNo special chareacters are allowed, Given input again\n");
+			printf("\nNo special chareacters are allowed, Give input again\n");
 			check_name();
 		}
 	}
@@ -308,8 +319,14 @@ void check_email()
 		printf("\nNot thundersoft mail extension\n");
 		check_email();
 	}
+	if(det.Email_id[0]=='.')
+	{
+		printf("\nEmail id shoudn't start with dot(.)\n");
+		check_email();
+	}
 	while(det.Email_id[k] != '\0')
 	{
+		
 		if(det.Email_id[k]=='.' || (det.Email_id[k] >= 65 && det.Email_id[k] <= 90) || (det.Email_id[k] >= 97 && det.Email_id[k]<=122) || det.Email_id[k]=='@')
 		{
 			k++;
@@ -317,7 +334,7 @@ void check_email()
 		else
 		{
 			count--;
-			printf("\nNo special chareacters are allowed, Given input again\n");
+			printf("\nNo special chareacters are allowed, Give input again\n");
 			check_email();
 		}
 	}
@@ -337,6 +354,11 @@ void check_reporting_manager()
 		printf("\nYou have given wrong input three times\n\n");
 		Training();	
 	}
+	if(strstr(det.Reporting_manager,"  "))
+	{
+		printf("\nMore than one space between names are not allowed\n");
+		check_reporting_manager();
+	}
 	while(det.Reporting_manager[k] != '\0')
 	{
 		if(det.Reporting_manager[k]==' ' || (det.Reporting_manager[k] >= 65 && det.Reporting_manager[k] <= 90) || (det.Reporting_manager[k] >= 97 && det.Reporting_manager[k]<=122))
@@ -346,10 +368,11 @@ void check_reporting_manager()
 		else
 		{
 			count--;
-			printf("\nNo special chareacters are allowed, Given input again\n");
+			printf("\nNo special chareacters are allowed, Give input again\n");
 			check_reporting_manager();
 		}
 	}
+	
 	
 }
 
@@ -365,6 +388,11 @@ void check_feedback()
 		printf("\nYou have given wrong input three times\n\n");
 		Training();	
 	}
+	if(strstr(det.Feedback,"  "))
+	{
+		printf("\nMore than one space between words  are not allowed\n");
+		check_feedback();
+	}
 	while(det.Feedback[k] != '\0')
 	{
 		if(det.Feedback[k]==' ' || (det.Feedback[k] >= 65 && det.Feedback[k] <= 90) || (det.Feedback[k] >= 97 && det.Feedback[k]<=122))
@@ -375,7 +403,7 @@ void check_feedback()
 		else
 		{
 			count--;
-			printf("\nNo special chareacters are allowed, Given input again\n");
+			printf("\nNo special chareacters are allowed, Give input again\n");
 			check_feedback();
 		}
 	}

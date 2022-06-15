@@ -1,4 +1,4 @@
-#include"Voting_Responce.h"
+#include"Voting_Response.h"
 #include<dirent.h>
 enum day{yes,no};
 char s[M],s1[M],buf[N],buf1[N];
@@ -267,7 +267,7 @@ void *p3(void *p)
 
 	pthread_mutex_unlock(&lock);
 }
-void Voting_Responce()
+void Voting_Response()
 {
 	FILE *f;
 	char c;
