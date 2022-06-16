@@ -74,14 +74,6 @@ int print(char *p)
 					print(p);
 				}
 			}
-			/*if(s[i]=='\0')
-			  {
-			  for(i=0;s[i];i++)
-			  b[k++]=s[i];
-			  b[k++]=',';
-			  puts(b);
-			  }*/
-
 		}
 		else
 		{
@@ -115,6 +107,13 @@ int print(char *p)
 			{
 				if(s[i+1]=='\0')
 					return no;
+				if((s[0]>=65)&&(s[i]<=122))
+					continue;
+				else
+				{
+					printf("enter valid email\n");
+					print(p);
+				}
 				if((s[i]=='@')||(s[i]=='.')||(s[i]>=65&&s[i]<=122))
 					continue;
 				else
@@ -140,6 +139,7 @@ int print(char *p)
 	{
 		int i,cnt=10,k;
 		static int c=3;
+		char q[20]="+91 ";
 		if(c==0)
 		{
 			printf("you have entered wrong input for 3 times\n");
@@ -149,7 +149,9 @@ int print(char *p)
 		scanf("%s",s);//scanning the data for required field
 		if((strlen(s))==(cnt))//checking the condition 
 		{
-			for(i=0;s[i];i++)
+			strcat(q,s);
+			strcpy(s,q);
+			for(i=4;s[i];i++)
 			{
 				if((s[i]>=48)&&(s[i]<=57))//checking condition for each index
 					continue;
@@ -161,7 +163,6 @@ int print(char *p)
 					print(p);
 				}
 			}
-
 		}
 		else
 		{
